@@ -1,0 +1,8 @@
+<google-map *ngIf="isMapLoaded" [options]="mapOptions" width="100vw" height="100vh" mapId="myMap">
+  <div #thingDom>
+    <img class="boatIcon" [src]="thingIcon.url" (click)="onThingClick($event)" />
+  </div>
+  @for (thing of thingArr; track $index) {
+    <map-advanced-marker [position]="thing.pos" [content]="thingDom"></map-advanced-marker>
+  }
+</google-map>

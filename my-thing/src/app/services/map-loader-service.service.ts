@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment.dev';
 
 @Injectable({ providedIn: 'root' })
 export class MapLoaderService {
@@ -10,8 +11,7 @@ export class MapLoaderService {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       const params = new URLSearchParams({
-        //key: 'AIzaSyBuT4j-ZqP24fYuefyVYwoRvA3gdxE3edI', // set to '' if API key not available yet
-        key: 'AIzaSyD8y98QQLczjMiGeyF2gFqD5uVa-Nu0tgk', 
+        key: environment.firebase.apiKey, 
         v: 'beta',
         libraries: 'marker',
         callback: 'initMap'

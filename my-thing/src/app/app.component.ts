@@ -1,37 +1,31 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { MapLoaderService } from './services/map-loader-service.service';
-import { RouterOutlet } from '@angular/router';
-import { Thing } from './shared/model/models';
 import { Subject } from 'rxjs';
+import { Thing } from './shared/model/models';
 
 @Component({
-  imports: [GoogleMapsModule, CommonModule],
   selector: 'app-root',
-  styleUrl: './app.scss',
-  templateUrl: './app.html',
+  standalone: true,
+  imports: [GoogleMapsModule, CommonModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
-export class App implements OnInit, OnDestroy {
-  
-  // This flag prevents Angular from rendering the <google-map>
-  // before the Google Maps JS API is fully loaded.
-  // Without this, you'll get "google is not defined" or blank maps.
+export class AppComponent implements OnInit {
+
   isMapLoaded = false;
 
   private mapLoaderService = inject(MapLoaderService);
-  private changeref = inject(ChangeDetectorRef);
   protected destroyed = new Subject<void>();
+
   
-
-  markerPosition: google.maps.LatLngLiteral = { lat: 26.342703577760624, lng: -80.07728885944596 };
-
-  protected readonly title = signal('tracker-app');
 
   things: { [id: number]: Thing; } = [];
   thingArr: Thing[] = []
 
-  // Initial map settings
+  markerPosition: google.maps.LatLngLiteral = { lat: 26.342703577760624, lng: -80.07728885944596 };
+
   mapOptions = {
     center: { lat: 26.342703577760624, lng: -80.07728882944576 },
     zoom: 20,
@@ -44,12 +38,14 @@ export class App implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-    // Load the Google Maps script first.
-    // Then allow the map to render.
+
+    this.thingArr.push({
+      pos: this.markerPosition
+    } as Thing);
+
     this.mapLoaderService.load()
       .then(() => {
-        this.isMapLoaded = true; // Map can now safely render
-        this.changeref.detectChanges();
+        this.isMapLoaded = true;
         console.log('Google Maps loaded successfully');
       })
       .catch(err => {
@@ -66,7 +62,3 @@ export class App implements OnInit, OnDestroy {
     alert('click')
   }
 }
-
-
-
-
