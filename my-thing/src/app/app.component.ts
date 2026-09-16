@@ -2,24 +2,31 @@ import { Component, OnInit, inject } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { MapLoaderService } from './services/map-loader-service.service';
-import { Subject } from 'rxjs';
+import { catchError, of, Subject, takeUntil } from 'rxjs';
 import { Thing } from './shared/model/models';
+import { AngularFireModule } from '@angular/fire/compat';
+import { ThingService } from './services/thing.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [GoogleMapsModule, CommonModule],
+  imports: [
+    GoogleMapsModule,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 
+  constructor(private thingService: ThingService) { 
+    debugger
+  }
+
   isMapLoaded = false;
 
   private mapLoaderService = inject(MapLoaderService);
   protected destroyed = new Subject<void>();
-
-  
 
   things: { [id: number]: Thing; } = [];
   thingArr: Thing[] = []
@@ -37,7 +44,17 @@ export class AppComponent implements OnInit {
     url: 'boatIcon.png'
   };
 
+
+
   ngOnInit(): void {
+
+    this.thingService.getThings((data) => {
+
+      debugger
+
+      this.thingArr = data;
+    });
+
 
     this.thingArr.push({
       pos: this.markerPosition
