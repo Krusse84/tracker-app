@@ -12,9 +12,10 @@ export class ThingService {
     }
 
     getThings(callback: (data: any) => void) {
+
         onValue(ref(this.db, 'boats'), (snapshot) => {
-            const donors = snapshot.val();
-            callback(Object.values(donors || {}));
+            const boats = snapshot.val();
+            callback(Object.values(boats || {}));
         });
     }
 }

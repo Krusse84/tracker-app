@@ -28,6 +28,27 @@ export interface Thing {
 }
 
 export interface Position {
-    long: number;
+    lng: number;
     lat: number;
 }
+
+ export interface Thing {
+    uid: string;
+    pos: Position;
+    updatedDate: number;
+    updatedTime: number;
+    rssi: string;
+    temperature: number;
+    humidity: number;
+    houseBattery: number;
+    speed: number;
+    owner: string;
+    model: string;
+    icon: any;
+    boatImage: string;
+    avatarImage: string;
+    subscriptionId: string;
+    course: number;
+    errors: number[];
+    warnings: number[];
+ }
