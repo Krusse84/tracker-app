@@ -1,0 +1,96 @@
+body,
+html {
+  height: 100%;
+}
+
+@media only screen and (max-width: 600px) and (orientation:portrait) {
+  .background {
+    padding: 85% 25% !important;
+  }
+}
+
+legend {
+  color: grey;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.order-options {
+  border: solid darkgray 1px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex; 
+  flex-direction: row; 
+  gap: 10px
+}
+
+.background {
+  background-image: url('../../../../public/start.png');
+  background-attachment: fixed;
+  padding: 25% 45%;
+  height: 100%;
+
+}
+
+.stripe-container {
+  min-width: 500px;
+  box-shadow: 5px 15px 20px rgb(0, 0, 0);
+}
+
+.cancel {
+  border: none;
+  background: 0;
+  float: right;
+  color: gray;
+  margin-bottom: 5px;
+  padding: 0;
+}
+
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.stripe {
+  width: 400px;
+}
+
+.div {
+  width: 400px;
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.mat-mdc-card-header {
+    display: flex;
+    padding: 16px;
+    background-color: #3f51b5;
+    border-top-left-radius: 3px;
+    font-size: 17px;
+    border-top-right-radius: 3px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}

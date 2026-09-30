@@ -1,0 +1,120 @@
+
+.example-card {
+    max-width: 400px;
+  }
+  
+agm-map {
+    height: 98vh;
+}
+
+agm-marker {
+    transform: rotate(45deg);
+}
+
+.green-icon {
+    color: #6CE679;
+}
+
+.green-icon svg {
+    fill: #6CE679;
+}
+
+.red-icon {
+    color:red;
+}
+
+.red-icon svg {
+    fill:red;
+}
+
+.profile-button:hover {
+    background: none rgb(235, 235, 235) !important;
+}
+
+.profile-button {
+    z-index: 0;
+    left: 50%;
+    top: 9px;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-width: 40px !important;
+    background: none rgb(255, 255, 255);
+    border: 0px;
+    margin: 10px;
+    padding: 0px 4px 0px 4px;
+    text-transform: none; 
+    appearance: none; 
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 2px;
+    box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
+    overflow: hidden;
+    right: 0px;
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.boatIcon {
+    border: 0;
+    background: 0;
+    padding: 0;
+    margin: 0;
+    width: 25%;
+    height: 25%;
+
+    img {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+
+.mat-badge-content {
+    font-family: 'Material Icons';
+}
+
+.mat-badge-primary .mat-badge-content {
+    background-color: #6CE679;
+    border: solid 1px white;
+}
+
+.mat-badge-warn .mat-badge-content {
+    background-color: #ff0202;
+    border: solid 1px white;
+}
+
+.mat-badge-accent .mat-badge-content {
+    background-color: #ffd000;
+    border: solid 1px white;
+}
+
+.boat-info {
+    background: whitesmoke; 
+    color: black; 
+    border-radius:3px;
+    padding: 5px;
+}
+
+.boat-info::before
+{
+    content:""; 
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom: 10px solid whitesmoke;
+    position: absolute;
+    top: 82px;
+    left: 10px;
+}
+
+::ng-deep .statusbar {
+    background: #047baa;
+}
+
+

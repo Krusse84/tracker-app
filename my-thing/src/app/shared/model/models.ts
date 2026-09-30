@@ -33,7 +33,7 @@ export interface Position {
 }
 
  export interface Thing {
-    uid: string;
+    id: string;
     pos: Position;
     updatedDate: number;
     updatedTime: number;

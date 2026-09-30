@@ -1,0 +1,24 @@
+@if (isMapLoaded) {
+  <google-map [options]="mapOptions" width="100vw" height="100vh" mapId="myMap" (mapInitialized)="onMapInitialized($event)">
+  <button id="Profile" class="profile-button" mat-button [matMenuTriggerFor]="menu">
+        <img [src]="user?.photoURL" />
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="profileClicked()">
+            <mat-icon>account_box</mat-icon>Profile
+        </button>
+        <button mat-menu-item (click)="navigateToCurrentUser(user.uid)">
+            <mat-icon>rowing</mat-icon>Navigate to your boat
+        </button>
+        <button mat-menu-item (click)="signOut()">
+            <mat-icon>logout</mat-icon>Sign out
+        </button>
+    </mat-menu>
+  <div #thingDom>
+    <img class="boatIcon" [src]="thingIcon.url" (click)="onThingClick($event)" />
+  </div>
+  @for (thing of things$ | async; track $index) {
+    <map-advanced-marker [position]="thing.pos" [content]="thingDom"></map-advanced-marker>
+  }
+</google-map>
+}

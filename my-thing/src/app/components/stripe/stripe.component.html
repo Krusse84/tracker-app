@@ -1,0 +1,81 @@
+<div class="background">
+    <mat-card class="stripe-container">
+        <mat-card-header>MyBoatInfo order details</mat-card-header>
+
+        <mat-card-content>
+            <div [formGroup]="checkoutForm">
+                <fieldset class="order-options">
+                    <legend>Order options</legend>
+                    <mat-list appearance="outline" style="flex: 1">
+                        <mat-list-item
+                            matTooltip="Monthly recurring subscription fee, gives access to MyBoatInfo monitoring site. Fee and access can be paused and re-activated on demand."
+                            matTooltipPosition="above">
+                            <mat-checkbox formControlName="cloudServices">Google cloud cervices 49:-/month
+                                subscription</mat-checkbox>
+                        </mat-list-item>
+                        <mat-list-item
+                            matTooltip="One time purchase of MyBoatInfo WiFi sender unit (enabling GPS positioning, temperature & humidity sensor monitoring) to be installed on any 12v source on your boat"
+                            matTooltipPosition="above">
+                            <mat-checkbox formControlName="senderUnit">12v boat sender unit 499:-</mat-checkbox>
+                        </mat-list-item>
+                    </mat-list>
+                </fieldset>
+
+                <div style="display: flex; flex-direction: row; gap: 10px">
+                    <mat-form-field appearance="outline" style="flex: 1">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="flex: 1">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="email" />
+                    </mat-form-field>
+                </div>
+                @if (checkoutForm.value.senderUnit == true) {
+                <div style="display: flex; flex-direction: row; gap: 10px">
+                    <mat-form-field appearance="outline" style="flex: 1">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address" />
+                    </mat-form-field>
+                </div>
+                }
+
+                @if (checkoutForm.value.senderUnit == true) {
+                <div style="display: flex; flex-direction: row; gap: 10px">
+                    <mat-form-field appearance="outline" style="flex: 1">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput formControlName="zipcode" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="flex: 1">
+                        <mat-label>City</mat-label>
+                        <input matInput formControlName="city" />
+                    </mat-form-field>
+                </div>
+                }
+
+                <div style="margin-bottom: 10px"></div>
+
+                <div style="margin-bottom: 20px"></div>
+                <mat-divider></mat-divider>
+                <div style="margin-bottom: 20px"></div>
+                <div style="text-align: right">
+                    <button mat-stroked-button color="warn" [disabled]="paying | async" (click)="clear()"
+                        style="margin-right: 16px">
+                        CLEAR
+                    </button>
+                    <button mat-raised-button color="primary"
+                        [disabled]="checkoutForm.valid == false || (paying | async) || amount === 0"
+                        (click)="checkoutFirebase('price_1OZsq6Fs1x5L8h1dBk4g55f2')">
+                        <span>
+                            CHECKOUT
+                            <span>{{ amount }}:-</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            {{stripeStatus}}
+
+        </mat-card-content>
+    </mat-card>
+</div>

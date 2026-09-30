@@ -1,0 +1,62 @@
+<div class="dialog">
+  <mat-dialog-content>
+    <mat-card class="card">
+      <mat-card-header>
+        <div mat-card-avatar [style.background-image]="avatarImage" [style.backgroundSize]="'cover'">
+        </div>
+        <mat-card-title>{{data.userData.displayName}}</mat-card-title>
+        <mat-card-subtitle>{{model}}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="editModel = false"><strong>Name:</strong><span
+              style="margin-left: 5px;">{{data.userData.displayName}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="editModel = false"><strong>UserId:</strong><span
+              style="margin-left: 5px;">{{data.userData.uid}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="editModel = false"><strong>EMail:</strong><span
+              style="margin-left: 5px;">{{data.userData.email}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="editModel = false"><strong>Subscription:</strong><span
+              style="margin-left: 5px;">{{data.thingData?.subscriptionStatus}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item (click)="editModel = true" style="cursor: cell">
+            <div>
+              <strong>Model:</strong>
+              @if(!editModel){<span style="margin-left: 5px;">{{model}}</span>}
+              @if(editModel){<input matInput placeholder="Boat model" value="{{model}}" (keyup)="onkey($event)"
+                (focusout)="editModel = false">}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+
+        <div class="boatImageContainer">
+          <img src="{{boatImage}}" />
+          <div class="middle">
+            <input type="file" id="fileControl" accept="image/jpeg" (change)="uploadImage($event)" />
+            <div class="text">Upload new image</div>
+          </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="save()" title="Save profile">
+      <i class="material-icons">save</i>
+    </button>
+
+    <button mat-button (click)="cancel()" title="Cancel">
+      <i class="material-icons">cancel</i>
+    </button>
+  </mat-dialog-actions>
+</div>

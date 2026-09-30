@@ -14,7 +14,8 @@ export class MapLoaderService {
         key: environment.firebase.apiKey, 
         v: 'beta',
         libraries: 'marker',
-        callback: 'initMap'
+        callback: 'initMap',
+        loading: 'async'
       });
 
       script.src = `https://maps.googleapis.com/maps/api/js?${params.toString()}`;
