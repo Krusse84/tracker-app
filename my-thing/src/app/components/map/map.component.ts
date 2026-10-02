@@ -11,6 +11,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserDialog } from '../dialogs/user-dialog/user-dialog.component';
 import { AuthService } from '../../services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
+import { ThingDialog } from '../dialogs/thing-dialog/thing-dialog.component';
 
 @Component({
   selector: 'map',
@@ -67,7 +68,7 @@ export class MapComponent implements OnInit {
   private map: any;
   private hover: { [id: number]: boolean; } = [];
   private clicked: { [id: number]: boolean; } = [];
-  private things: { [id: number]: Thing; } = [];
+  protected things: { [id: number]: Thing; } = [];
   protected user: any;
   protected destroyed = new Subject<void>();
 
@@ -114,7 +115,12 @@ export class MapComponent implements OnInit {
   }
 
   onThingClick(evt: any) {
-    alert('click')
+    const dialogRef = this.userDialog?.open(ThingDialog, {
+      data: {
+        userData: this.user,
+        thingData: this.things[this.user.uid]
+      }
+    });
   }
 
   profileClicked() {
@@ -154,7 +160,9 @@ export class MapComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.logout();
+    this.ngZone.run(() => {
+      this.authService.logout();  
+    })
   }
 
   waitFor(conditionFunction: any) {

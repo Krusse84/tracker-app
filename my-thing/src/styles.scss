@@ -10,3 +10,23 @@ html {
         density: 0
     ))
 }
+
+:root {
+  @include mat.dialog-overrides((
+    /*container-shape: rectangle,
+    container-color: #060606,
+    subhead-color: #000000,
+    supporting-text-color: #be0404,
+    subhead-font:'Times New Roman',
+    subhead-line-height: 1.5,
+    subhead-size: 3rem,
+    subhead-weight: 700,
+    subhead-tracking: 0.1rem,
+    supporting-text-font: 'Times New Roman',
+    supporting-text-line-height: 1.5,
+    supporting-text-size: 1.5rem,
+    supporting-text-weight: 700,
+    supporting-text-tracking: 0.1rem,*/
+    container-elevation-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.5),
+  ));
+}

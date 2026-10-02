@@ -9,18 +9,18 @@
 
     <mat-card-content>
       <mat-divider></mat-divider>
-      <mat-list-item><img src="{{boatImage}}" />
+      <mat-list-item style="height: auto;"><img src="{{thingImage}}" />
       </mat-list-item>
       <mat-list>
         <mat-divider></mat-divider>
         <mat-list-item class="status-list-item"><strong>Status:</strong>
           <div>
-            @if(!data.thingData?.errors?.length && !data.thingData?.warnings.length) {
+            @if(!data.thingData?.errors?.length && !data.thingData?.warnings?.length) {
               <span style="margin-left: 5px;">OK</span>
             }
             <span style="margin-left: 5px;"
-              *ngFor="let item of data.thingData?.errors.concat(data?.thingData?.warnings); let i = index;">
-              {{data.thingData?.errors.concat(data.thingData?.warnings).length == i + 1 ? item.name : item.name + ', '}}
+              *ngFor="let item of data.thingData?.errors?.concat(data?.thingData?.warnings); let i = index;">
+              {{data.thingData?.errors?.concat(data.thingData?.warnings).length == i + 1 ? item.name : item.name + ', '}}
             </span>
           </div>
         </mat-list-item>
@@ -29,7 +29,7 @@
           <strong>Position:</strong>
           <div>
             <span style="margin-left: 5px;">{{getLat(data.thingData?.pos.lat)}}</span><br />
-            <span style="margin-left: 5px;">{{getLng(data.thingData?.pos.lng)}}</span>
+            <span style="margin-left: 5px;">{{getLong(data.thingData?.pos.lng)}}</span>
           </div>
         </mat-list-item>
         <mat-divider></mat-divider>

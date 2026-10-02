@@ -8,7 +8,7 @@ import {
     signOut,
     user,
     User,
-    
+
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { setPersistence, signInWithRedirect } from 'firebase/auth';
@@ -45,22 +45,27 @@ export class AuthService {
     logout(): Observable<void> {
         const promise = signOut(this.firebaseAuth).then(() => {
             sessionStorage.clear();
+            this.router.navigate(['sign-in']);
         });
+
         return from(promise);
     }
 
     async googleLogin(): Promise<void> {
         const provider = new GoogleAuthProvider();
         try {
-            const result = await signInWithPopup(this.firebaseAuth, provider);
+            this.ngZone.run(async x => {
+                const result = await signInWithPopup(this.firebaseAuth, provider);
 
-            const user = (result as any).user;
+                const user = (result as any).user;
 
-            if (user) {
-                this.ngZone.run(() => {
+                if (user) {
                     return this.router.navigate(['map']);
-                });
-            }
+                }
+
+                return this.router.navigate(['sign-in']);
+
+            });
 
             if (!user) {
                 throw new Error('Google-Login error');

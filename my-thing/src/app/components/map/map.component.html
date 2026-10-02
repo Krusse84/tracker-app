@@ -7,7 +7,7 @@
         <button mat-menu-item (click)="profileClicked()">
             <mat-icon>account_box</mat-icon>Profile
         </button>
-        <button mat-menu-item (click)="navigateToCurrentUser(user.uid)">
+        <button mat-menu-item (click)="navigateToCurrentUser(things[this.user.uid])">
             <mat-icon>rowing</mat-icon>Navigate to your boat
         </button>
         <button mat-menu-item (click)="signOut()">
