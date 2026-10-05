@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, NgZone, OnInit } from '@angular/core';
+import { Component, EnvironmentInjector, inject, NgZone, OnInit, runInInjectionContext } from '@angular/core';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { combineLatest, Observable, Subject, takeUntil } from 'rxjs';
-import { Database, ref, listVal } from '@angular/fire/database';
+import { Database, ref, listVal, DatabaseReference, set } from '@angular/fire/database';
 import { MapLoaderService } from '../../services/map-loader-service.service';
 import { Thing } from '../../shared/model/models';
 import { MatMenuModule } from '@angular/material/menu';
@@ -12,6 +12,7 @@ import { UserDialog } from '../dialogs/user-dialog/user-dialog.component';
 import { AuthService } from '../../services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { ThingDialog } from '../dialogs/thing-dialog/thing-dialog.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'map',
@@ -23,27 +24,32 @@ import { ThingDialog } from '../dialogs/thing-dialog/thing-dialog.component';
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ]
 })
 export class MapComponent implements OnInit {
 
   constructor(
   ) {
-    const thingsRef = ref(this.database, 'boats');
+    this.thingsRef = ref(this.database, 'boats');
 
-    this.things$ = listVal<Thing>(thingsRef, { keyField: 'id' });
+    this.things$ = listVal<Thing>(this.thingsRef, { keyField: 'id' });
 
     combineLatest([this.authService.user$, this.things$]).pipe(takeUntil(this.destroyed)).subscribe(async data => {
       await this.waitFor(() => data[1].find(x => x.id === data[0]?.uid));
 
-      this.user = data[0];
+      runInInjectionContext(this.injector, () => {
+        this.currentThingRef = ref(this.database, `boats/${data[0]?.uid}`);
 
-      const currentThing = data[1].find(x => x.id === data[0]?.uid);
+        this.user = data[0];
 
-      this.things[this.user.uid] = currentThing as Thing;
+        const currentThing = data[1].find(x => x.id === data[0]?.uid);
 
-      this.navigateToCurrentUser(currentThing as Thing);
+        this.things[this.user.uid] = currentThing as Thing;
+
+        this.navigateToCurrentUser(currentThing as Thing);
+      })
     });
 
     this.mapLoaderService.load()
@@ -58,12 +64,16 @@ export class MapComponent implements OnInit {
 
   isMapLoaded = false;
 
+  private thingsRef: DatabaseReference;
+  private currentThingRef!: DatabaseReference;
   private authService = inject(AuthService);
   private readonly database = inject(Database);
   private mapLoaderService = inject(MapLoaderService);
+  private readonly injector = inject(EnvironmentInjector);
   readonly userDialog = inject(MatDialog);
   readonly thingDialog = inject(MatDialog);
   readonly ngZone = inject(NgZone);
+  readonly snackbar = inject(MatSnackBar)
 
   private map: any;
   private hover: { [id: number]: boolean; } = [];
@@ -136,15 +146,22 @@ export class MapComponent implements OnInit {
 
     dialogRef?.afterClosed().subscribe(data => {
       if (data) {
-        /*this.db.object(`boats/${this.user.uid}/model`).set(data.model);
-        this.db.object(`boats/${this.user.uid}/boatImage`).set(data.boatImage);
-        this.db.object(`boats/${this.user.uid}/avatarImage`).set(data.avatarImage);
-        this.db.object(`boats/${this.user.uid}/owner`).set(data.owner);
+        runInInjectionContext(this.injector, () => {
+          const currentThing = this.things[this.user.uid];
 
-        this.statusBar.open(`Your profile is saved!`, '', {
+          set(this.currentThingRef, {
+            ...currentThing,
+            model: data.model,
+            boatImage: data.boatImage,
+            avatarImage: data.avatarImage,
+            owner: data.owner
+          })
+        })
+
+        this.snackbar.open(`Your profile is saved!`, '', {
           duration: 3000,
           panelClass: ['statusbar']
-        });*/
+        });
       }
     });
   }
@@ -161,7 +178,7 @@ export class MapComponent implements OnInit {
 
   signOut() {
     this.ngZone.run(() => {
-      this.authService.logout();  
+      this.authService.logout();
     })
   }
 

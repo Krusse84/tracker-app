@@ -3,14 +3,6 @@
     max-width: 400px;
   }
   
-agm-map {
-    height: 98vh;
-}
-
-agm-marker {
-    transform: rotate(45deg);
-}
-
 .green-icon {
     color: #6CE679;
 }
@@ -113,8 +105,8 @@ agm-marker {
     left: 10px;
 }
 
-::ng-deep .statusbar {
+/*::ng-deep .statusbar {
     background: #047baa;
-}
+}*/
 
 

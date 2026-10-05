@@ -26,7 +26,7 @@ export class ThingDialog {
   }
 
   getLong(value: any) {
-    return `Lon: ${value}`
+    return `Lng: ${value}`
   }
 
   getUpdatedString(date: any, time: any) {
