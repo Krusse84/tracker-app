@@ -45,7 +45,7 @@ export interface Position {
     owner: string;
     model: string;
     icon: any;
-    boatImage: string;
+    thingImage: string;
     avatarImage: string;
     subscriptionId: string;
     course: number;

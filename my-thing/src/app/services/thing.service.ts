@@ -8,14 +8,14 @@ export class ThingService {
 
     addThing(donor: any) {
         const id = push(child(ref(this.db), 'things')).key!;
-        return set(ref(this.db, `boats/${id}`), donor);
+        return set(ref(this.db, `things/${id}`), donor);
     }
 
     getThings(callback: (data: any) => void) {
 
-        onValue(ref(this.db, 'boats'), (snapshot) => {
-            const boats = snapshot.val();
-            callback(Object.values(boats || {}));
+        onValue(ref(this.db, 'things'), (snapshot) => {
+            const things = snapshot.val();
+            callback(Object.values(things || {}));
         });
     }
 }

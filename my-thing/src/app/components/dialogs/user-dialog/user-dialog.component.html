@@ -29,17 +29,17 @@
           <mat-divider></mat-divider>
           <mat-list-item (click)="editModel = true" style="cursor: cell">
             <div>
-              <strong>Model:</strong>
+              <strong>Asset:</strong>
               @if(!editModel){<span style="margin-left: 5px;">{{model}}</span>}
-              @if(editModel){<input matInput placeholder="Boat model" value="{{model}}" (keyup)="onkey($event)"
+              @if(editModel){<input matInput placeholder="Asset" value="{{model}}" (keyup)="onkey($event)"
                 (focusout)="editModel = false">}
             </div>
           </mat-list-item>
           <mat-divider></mat-divider>
         </mat-list>
 
-        <div class="boatImageContainer">
-          <img src="{{boatImage}}" />
+        <div class="thingImageContainer">
+          <img src="{{thingImage}}" />
           <div class="middle">
             <input type="file" id="fileControl" accept="image/jpeg" (change)="uploadImage($event)" />
             <div class="text">Upload new image</div>

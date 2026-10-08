@@ -16,7 +16,7 @@ export class UserDialog {
     private ngZone: NgZone,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.boatImage = `${data.thingData?.boatImage ? data.thingData.boatImage : this.noImage}`;
+    this.thingImage = `${data.thingData?.thingImage ? data.thingData.thingImage : this.noImage}`;
     this.avatarImage = `url(${data?.userData?.photoURL})`;
     this.model = data.thingData?.model;
     this.owner = data.userData?.displayName
@@ -31,7 +31,7 @@ export class UserDialog {
 
   avatarImage: string = '';
   model: string = '';
-  boatImage: string = '';
+  thingImage: string = '';
   noImage: string = '../assets/NO_IMAGE.png';
   fileToUpload: File | null = null;
   editModel: boolean = false;
@@ -39,7 +39,7 @@ export class UserDialog {
 
   save() {
     this.dialogRef.close({
-      boatImage: this.boatImage,
+      thingImage: this.thingImage,
       model: this.model,
       avatarImage: this.avatarImage,
       owner: this.owner
@@ -76,7 +76,7 @@ export class UserDialog {
 
       const base64file = await this.toBase64(file);
 
-      this.boatImage = base64file as string;
+      this.thingImage = base64file as string;
     }
 
   }

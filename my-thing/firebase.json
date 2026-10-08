@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "intraxy",
-    "public": "dist/my-thing",
+    "public": "dist/my-thing/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

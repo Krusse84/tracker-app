@@ -7,7 +7,7 @@
     width: 100%;
   }
 
-.boatImageContainer {
+.thingImageContainer {
     margin-top: 20px;
     position: relative;
 
@@ -56,11 +56,11 @@
       }
 }
 
-.boatImageContainer:hover .image {
+.thingImageContainer:hover .image {
     opacity: 0.3;
   }
   
-.boatImageContainer:hover .middle {
+.thingImageContainer:hover .middle {
     opacity: 1;
 }
 

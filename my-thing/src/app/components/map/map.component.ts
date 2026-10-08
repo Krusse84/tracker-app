@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
 
   constructor(
   ) {
-    this.thingsRef = ref(this.database, 'boats');
+    this.thingsRef = ref(this.database, 'things');
 
     this.things$ = listVal<Thing>(this.thingsRef, { keyField: 'id' });
 
@@ -40,7 +40,7 @@ export class MapComponent implements OnInit {
       await this.waitFor(() => data[1].find(x => x.id === data[0]?.uid));
 
       runInInjectionContext(this.injector, () => {
-        this.currentThingRef = ref(this.database, `boats/${data[0]?.uid}`);
+        this.currentThingRef = ref(this.database, `things/${data[0]?.uid}`);
 
         this.user = data[0];
 
@@ -48,7 +48,7 @@ export class MapComponent implements OnInit {
 
         this.things[this.user.uid] = currentThing as Thing;
 
-        this.navigateToCurrentUser(currentThing as Thing);
+        this.navigateToCurrentUser(currentThing as Thing, false);
       })
     });
 
@@ -94,7 +94,7 @@ export class MapComponent implements OnInit {
   };
 
   thingIcon = {
-    url: 'boatIcon.png'
+    url: 'thingIcon.png'
   };
 
   things$!: Observable<Thing[]>;
@@ -125,7 +125,7 @@ export class MapComponent implements OnInit {
   }
 
   onThingClick(evt: any) {
-    const dialogRef = this.userDialog?.open(ThingDialog, {
+    this.userDialog?.open(ThingDialog, {
       data: {
         userData: this.user,
         thingData: this.things[this.user.uid]
@@ -152,7 +152,7 @@ export class MapComponent implements OnInit {
           set(this.currentThingRef, {
             ...currentThing,
             model: data.model,
-            boatImage: data.boatImage,
+            thingImage: data.thingImage,
             avatarImage: data.avatarImage,
             owner: data.owner
           })
@@ -166,13 +166,21 @@ export class MapComponent implements OnInit {
     });
   }
 
-  navigateToCurrentUser(thing: Thing) {
-
+  navigateToCurrentUser(thing: Thing, openDialog: boolean) {
     if (thing) {
       this.lat = thing.pos.lat;
       this.lng = thing.pos.lng;
 
       this.map.setCenter({ lat: parseFloat(this.lat.toString()), lng: parseFloat(this.lng.toString()) });
+
+      if(openDialog) {
+        this.userDialog?.open(ThingDialog, {
+        data: {
+          userData: this.user,
+          thingData: this.things[this.user.uid]
+        }
+      });
+      }
     }
   }
 
@@ -183,7 +191,6 @@ export class MapComponent implements OnInit {
   }
 
   waitFor(conditionFunction: any) {
-
     const poll = (resolve: any) => {
       if (conditionFunction())
         (

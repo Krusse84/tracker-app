@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+/*import { Injectable, NgZone } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/oldauth.service';
 
@@ -24,4 +24,4 @@ export class UserLoadedGuard implements CanActivate {
   }
     
   
-}
+}*/

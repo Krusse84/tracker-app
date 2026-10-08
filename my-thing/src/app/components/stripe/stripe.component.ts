@@ -27,7 +27,7 @@ import {
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { environment } from '../../environments/environment.dev';
-import { AuthService } from '../../services/oldauth.service';
+//import { AuthService } from '../../services/oldauth.service';
 
 @Component({
   selector: 'app-stripe',
@@ -59,7 +59,7 @@ export class StripeComponent implements OnInit {
   @ViewChild(StripeElementsDirective)
 
   private readonly fb = inject(UntypedFormBuilder);
-  private user;
+  //private user;
   private senderPrice: number = 499;
   private servicePrice: number = 49;
   stripeStatus: string; 
@@ -99,11 +99,11 @@ export class StripeComponent implements OnInit {
     public ngZone: NgZone,
     public router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService,
+    //private authService: AuthService,
     private afFun: AngularFireFunctions
   ) {
 
-    this.user = this.authService.googleUser;
+    //this.user = this.authService.googleUser;
 
     this.stripeStatus = '';
   }
@@ -139,8 +139,8 @@ export class StripeComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkoutForm.patchValue({
-      name: this.user.name,
-      email: this.user.email,
+      /*name: this.user.name,
+      email: this.user.email,*/
     });
 
     //this.stripeStatus = this.getStripeStatus();   
@@ -169,13 +169,13 @@ export class StripeComponent implements OnInit {
   }
 
   checkoutFirebase(priceId: string): void {
-    console.log(`checking out with item id: ${priceId} for ${this.user.email}`);
+    //console.log(`checking out with item id: ${priceId} for ${this.user.email}`);
 
     this.afFun.httpsCallable('stripeCheckoutWithoutDbQueries')(
       {
         priceId: priceId, 
-        email: this.user.email,
-        uid: this.user.uid
+        //email: this.user.email,
+        //uid: this.user.uid
       }
     )
       .subscribe(result => {

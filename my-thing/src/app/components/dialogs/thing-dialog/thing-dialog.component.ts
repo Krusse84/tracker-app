@@ -16,7 +16,7 @@ export class ThingDialog {
     public dialogRef: MatDialogRef<ThingDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.thingImage = `${data.thingData?.boatImage ? data.thingData?.boatImage : this.noImage}`;
+    this.thingImage = `${data.thingData?.thingImage ? data.thingData?.thingImage : this.noImage}`;
     this.houseBattery = Math.round(data.thingData?.houseBattery * 100) / 100;
     this.speed = data.thingData?.speed > 5 ? Math.round(data.thingData?.speed) : 0;
   }

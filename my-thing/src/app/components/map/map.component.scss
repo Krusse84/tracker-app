@@ -51,7 +51,7 @@
     }
 }
 
-.boatIcon {
+.thingIcon {
     border: 0;
     background: 0;
     padding: 0;
@@ -87,14 +87,14 @@
     border: solid 1px white;
 }
 
-.boat-info {
+.thing-info {
     background: whitesmoke; 
     color: black; 
     border-radius:3px;
     padding: 5px;
 }
 
-.boat-info::before
+.thing-info::before
 {
     content:""; 
     border-left:10px solid transparent;
