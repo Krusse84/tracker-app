@@ -10,6 +10,7 @@ export class MapLoaderService {
 
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
+
       const params = new URLSearchParams({
         key: environment.firebase.apiKey, 
         v: 'beta',
