@@ -66,18 +66,17 @@ export class MapComponent implements OnInit {
 
   private thingsRef: DatabaseReference;
   private currentThingRef!: DatabaseReference;
-  private authService = inject(AuthService);
   private readonly database = inject(Database);
   private mapLoaderService = inject(MapLoaderService);
   private readonly injector = inject(EnvironmentInjector);
+  private map: any;
+
   readonly userDialog = inject(MatDialog);
   readonly thingDialog = inject(MatDialog);
   readonly ngZone = inject(NgZone);
   readonly snackbar = inject(MatSnackBar)
+  readonly authService = inject(AuthService);
 
-  private map: any;
-  private hover: { [id: number]: boolean; } = [];
-  private clicked: { [id: number]: boolean; } = [];
   protected things: { [id: number]: Thing; } = [];
   protected user: any;
   protected destroyed = new Subject<void>();

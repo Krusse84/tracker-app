@@ -1,7 +1,8 @@
 @if (isMapLoaded) {
   <google-map [options]="mapOptions" width="100vw" height="100vh" mapId="myMap" (mapInitialized)="onMapInitialized($event)">
   <button id="Profile" class="profile-button" mat-button [matMenuTriggerFor]="menu">
-        <img [src]="user.photoURL" />
+        <img *ngIf="authService.user$ | async as user" 
+        [src]="user.photoURL ?? 'default-avatar.png'" />
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileClicked()">

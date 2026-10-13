@@ -1,6 +1,6 @@
-/*import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../services/oldauth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,14 @@ export class UserLoadedGuard implements CanActivate {
   ) { }
 
   canActivate(): boolean {
-    if(this.authService.googleUser == null) {
+    /*if(this.authService.googleUser == null) {
       this.ngZone.run(() => {
         return this.router.navigate(['map']);
       });
-    }
+    }*/
 
     return true
   }
     
   
-}*/
+}
